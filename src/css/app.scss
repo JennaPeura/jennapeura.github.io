@@ -27,7 +27,7 @@ h6 {
   background: $dark-page;
 }
 ::-webkit-scrollbar-thumb {
-  background: lighten($dark, 10%);
+  background: adjust($dark, $lightness, 10%);
   border-radius: 4px;
   &:hover {
     background: $primary;
