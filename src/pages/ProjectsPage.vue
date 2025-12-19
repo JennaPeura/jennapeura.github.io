@@ -1,81 +1,55 @@
 <template>
-  <q-page padding>
-    <div :class="'container' + ($q.screen.lt.md ? ' mobile' : '')">
-      <q-card
-        @click="redirect(item.link)"
-        class="my-card"
-        v-for="(item, index) in items"
-        :key="index"
-      >
-        <img :src="item.img" width="300px" height="300px" />
-        <q-card-section>
-          <div class="text-h6">{{ item.title }}</div>
-        </q-card-section>
-        <q-card-section>
-          {{ item.desc }}
-        </q-card-section>
-      </q-card>
+  <q-page class="q-pa-md">
+    <div class="text-center q-mb-xl q-pt-lg">
+      <h2 class="text-h2 text-weight-bold text-gradient q-mb-sm">My Projects</h2>
+      <p class="text-h6 text-grey-5">A selection of my recent work</p>
+    </div>
+
+    <div class="row q-col-gutter-xl">
+      <div v-for="project in projects" :key="project.id" class="col-12 col-md-6 col-lg-4">
+        <ProjectCard :project="project" />
+      </div>
     </div>
   </q-page>
 </template>
 
-<script setup>
-const items = [
-  {
-    title: "Discord Bot Valerie",
-    link: "https://github.com/JennaPeura/ValerieBotV2.1",
-    desc: "A neat little bot mostly for my own personal servers. She can play music, find and send gifs plus other fun things.",
-    img: "images/Work1.png",
-  },
-  {
-    title: "Starshifted SoMe site",
-    link: "https://github.com/JennaPeura/starshifted",
-    desc: "I made this a bit bigger project with Vue + Quasar to create a similar site to X (ex. Twitter)",
-    img: "images/stars.jpg",
-  },
-  {
-    title: '"Better YouTube"',
-    link: "https://github.com/JennaPeura/BetterYouTube",
-    desc: "I made this to use an API to get YouTube videos to show on my personal page, essentially making my very own YouTube except it looked prettier than the actual YouTube (;",
-    img: "images/ytclone.png",
-  },
-  {
-    title: "Weather App",
-    link: "https://github.com/JennaPeura/weather",
-    desc: "Made this simple Weather App in 2021 to get into using APIs",
-    img: "images/wapi.png",
-  },
-  {
-    title: "Portfolio Website",
-    link: "https://github.com/JennaPeura/jennapeura.github.io",
-    desc: "Basically; this very website.",
-    img: "images/Work2.jpg",
-  },
-];
+<script setup lang="ts">
+import { ref } from 'vue';
+import ProjectCard from 'components/ProjectCard.vue';
+import { type Project } from 'components/models';
 
-const redirect = (link) => {
-  window.open(link);
-};
+const projects = ref<Project[]>([
+  {
+    id: 1,
+    name: 'Escapica',
+    description:
+      'Full-stack booking and discovery platform for immersive experiences. Built with Vue 3, Quasar, and Supabase, featuring real-time availability, secure payments, and a scalable architecture.',
+    techStack: ['Vue 3', 'Quasar', 'Supabase', 'TypeScript'],
+    status: 'In Development',
+    timeline: 'Founded 06/2024',
+    image: 'escapica-preview.png',
+    link: 'https://escapica.com',
+  },
+  {
+    id: 2,
+    name: 'Personal Portfolio',
+    description: 'My personal portfolio website showcasing my skills and projects.',
+    techStack: ['Vue 3', 'Quasar', 'SCSS'],
+    status: 'Launched',
+    timeline: 'Launched 12/2025',
+    image: 'portfolio.png',
+    link: 'https://jennapeura.github.io/'
+  },
+  {
+    id: 3,
+    name: 'Starshifted',
+    description:
+      'A social site prototype built with Vue and responsive design principles.',
+    techStack: ['Vue 3', 'Quasar', 'CSS'],
+    status: 'Prototype',
+    timeline: '2022',
+    image: 'starshifted.png',
+    link: 'https://github.com/JennaPeura/starshifted',
+  },
+]);
 </script>
-
-<style lang="scss" scoped>
-.container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  .q-card {
-    min-width: 300px;
-    margin: 13px;
-    border-radius: 15px;
-  }
-}
-
-.container.mobile {
-  display: flex;
-  flex-direction: column;
-  .q-card {
-    width: 320px;
-    margin: 13px;
-    border-radius: 15px;
-  }
-}
-</style>
